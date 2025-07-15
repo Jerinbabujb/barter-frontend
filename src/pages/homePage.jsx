@@ -4,11 +4,15 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ProductContext } from '../../context/productContext';
 import { useEffect } from 'react';
+import { AuthContext } from '../../context/userContext';
 
 const HomePage = () => {
  const [products,setProducts]=useState([]);
 const loccation=useLocation();
   const{getProducts}=useContext(ProductContext);
+
+  const {authUser}= useContext(AuthContext);
+  const [image,setImage]=useState(authUser.image);
 
   const navigate = useNavigate();
   const gotoProfile=()=>{
@@ -35,7 +39,7 @@ useEffect(() => {
     <div className='container'>
       <div className='flex justify-between'>
         <img src='/assets/barter.webp' alt='logo' className='w-24'/>
-        <img src='/assets/profile_alison.png' onClick={gotoProfile} alt='profile image' className='w-18 rounded-full cursor-pointer'/>
+        <img src={image} onClick={gotoProfile} alt='profile image' className='w-18 rounded-full cursor-pointer'/>
       </div>
     <div className="p-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 bg-gray-100 p-6 rounded-xl shadow">
